@@ -26,9 +26,13 @@
     <h2>1. Descripción de la Solución</h2>
     <p>El objetivo de esta práctica consistió en procesar la obra literaria "Don Quijote de la Mancha" para contar el total de palabras, buscar ocurrencias de la palabra objetivo ("Quijote") y subcadenas específicas ("ción"). Se comparó una implementación estrictamente secuencial contra una implementación concurrente basada en la creación explícita de objetos <code>Thread</code>, dividiendo el texto en fragmentos independientes delimitados por espacios en blanco para evitar cortes de palabras.</p>
 
-    <h2>2. Características del Entorno de Ejecución</h2>
+    <h2>2. Especificaciones del Entorno y Hardware</h2>
+    <p>Para garantizar la reproducibilidad y el análisis correcto de la aceleración (<em>speedup</em>), las pruebas de rendimiento se ejecutaron en el siguiente equipo de cómputo:</p>
     <ul>
-        <li><strong>Sistema Operativo:</strong> Windows 11 / Kubuntu Linux</li>
+        <li><strong>Procesador (CPU):</strong> Intel Core (14 Núcleos / 20 Procesadores Lógicos, Frecuencia base de 2.60 GHz)[cite: 3]</li>
+        <li><strong>Memoria RAM:</strong> 16 GB SODIMM DDR4/DDR5 a 3200 MT/s (15.6 GB utilizables)[cite: 3]</li>
+        <li><strong>Almacenamiento:</strong> Unidad de Estado Sólido SSD NVMe[cite: 3]</li>
+        <li><strong>Sistema Operativo:</strong> Windows 11</li>
         <li><strong>Entorno de Desarrollo:</strong> Visual Studio Code</li>
         <li><strong>Runtime Java:</strong> JDK 25 (OpenJDK Temurin)</li>
     </ul>
