@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe de Práctica: Procesamiento Secuencial y Paralelo con Hilos</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 40px; background-color: #f9f9f9; color: #333; }
+        h1, h2, h3 { color: #0056b3; }
+        .container { background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: center; }
+        th { background-color: #0056b3; color: white; }
+        tr:nth-child(even) { background-color: #f2f2f2; }
+        .code-box { background: #272822; color: #f8f8f2; padding: 15px; border-radius: 5px; font-family: monospace; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Informe de Laboratorio: Programación Paralela en Java</h1>
+    <p><strong>Estudiante:</strong> Jorge Pizarro</p>
+    <p><strong>Universidad:</strong> Universidad Politécnica Salesiana (Sede Cuenca)</p>
+
+    <hr>
+
+    <h2>1. Descripción de la Solución</h2>
+    <p>El objetivo de esta práctica consistió en procesar la obra literaria "Don Quijote de la Mancha" para contar el total de palabras, buscar ocurrencias de la palabra objetivo ("Quijote") y subcadenas específicas ("ción"). Se comparó una implementación estrictamente secuencial contra una implementación concurrente basada en la creación explícita de objetos <code>Thread</code>, dividiendo el texto en fragmentos independientes delimitados por espacios en blanco para evitar cortes de palabras.</p>
+
+    <h2>2. Características del Entorno de Ejecución</h2>
+    <ul>
+        <li><strong>Sistema Operativo:</strong> Windows 11 / Kubuntu Linux</li>
+        <li><strong>Entorno de Desarrollo:</strong> Visual Studio Code</li>
+        <li><strong>Runtime Java:</strong> JDK 25 (OpenJDK Temurin)</li>
+    </ul>
+
+    <h2>3. Resultados Experimentales</h2>
+    <p>Las pruebas se ejecutaron promediando múltiples corridas para minimizar la fluctuación del sistema. Se evaluaron dos escenarios: el texto original y un escenario de alto estrés con el texto ampliado 100 veces ($\approx 21.6$ millones de palabras).</p>
+
+    <table>
+        <tr>
+            <th>Escenario / Dataset</th>
+            <th>Número de Hilos</th>
+            <th>Tiempo Promedio (ms)</th>
+            <th>Aceleración (Speedup $S = T_s / T_p$)</th>
+        </tr>
+        <tr>
+            <td><strong>Texto Original (216k palabras)</strong></td>
+            <td>1 Hilo (Secuencial)</td>
+            <td>58.27 ms</td>
+            <td>1.00x (Base)</td>
+        </tr>
+        <tr>
+            <td>Texto Original</td>
+            <td>2 Hilos</td>
+            <td>39.25 ms</td>
+            <td>1.48x</td>
+        </tr>
+        <tr>
+            <td>Texto Original</td>
+            <td>4 Hilos</td>
+            <td>17.43 ms</td>
+            <td>3.34x</td>
+        </tr>
+        <tr>
+            <td><strong>Texto Ampliado 100x (21.6M palabras)</strong></td>
+            <td>1 Hilo (Secuencial)</td>
+            <td>3,596.65 ms</td>
+            <td>1.00x (Base)</td>
+        </tr>
+        <tr>
+            <td>Texto Ampliado 100x</td>
+            <td>2 Hilos</td>
+            <td>2,200.40 ms</td>
+            <td>1.63x</td>
+        </tr>
+        <tr>
+            <td>Texto Ampliado 100x</td>
+            <td>4 Hilos</td>
+            <td>1,898.50 ms</td>
+            <td>1.89x</td>
+        </tr>
+    </table>
+
+    <h2>4. Análisis de Resultados y Preguntas</h2>
+    <p><strong>¿Cómo se comporta el speedup al incrementar el número de hilos?</strong><br>
+    En el texto original de menor tamaño, la sobrecarga (*overhead*) de creación y gestión de hilos limita el beneficio absoluto, aunque con 4 hilos se alcanza un destacado factor de aceleración de 3.34x debido a la simplicidad de la tarea. En el escenario masivo (100x), se observa una mejora sustancial en el tiempo absoluto de procesamiento al paralelizar, reduciendo la ejecución de más de 3.5 segundos a menos de 1.9 segundos con 4 hilos.</p>
+
+    <h2>5. Conclusiones</h2>
+    <ul>
+        <li>La división concurrente de grandes volúmenes de texto mediante hilos en Java permite aprovechar los procesadores multinucleares, reduciendo significativamente los tiempos de procesamiento en tareas intensivas de CPU.</li>
+        <li>Se comprobó empíricamente la Ley de Amdahl: a medida que el volumen de datos aumenta y la carga de cómputo por hilo es mayor, la paralelización maximiza el rendimiento, aunque siempre existirá un límite de ganancia condicionado por las secciones secuenciales y el costo de sincronización (`join()`).</li>
+        <li>El uso de control de versiones con Git y la correcta exclusión de binarios mediante <code>.gitignore</code> garantizan un repositorio limpio y profesional enfocado estrictamente en el código fuente.</li>
+    </ul>
+</div>
+</body>
+</html>
